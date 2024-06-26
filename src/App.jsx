@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TodoList from "./TodoList";
+import AddTodoForm from "./AddTodoForm";
 
 // import "./App.css";
 
@@ -8,6 +9,7 @@ function App() {
     <>
       <div>
         <h1>Todo List</h1>
+        <AddTodoForm />
         <TodoList />
       </div>
     </>
