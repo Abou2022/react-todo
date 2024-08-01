@@ -5,8 +5,8 @@ const TodoList = ({ todoList }) => {
   return (
     <>
       <ul>
-        {todoList.map(function (todo) {
-          return <TodoListItem key={todo.id} title={todo.title} />;
+        {todoList.map(function ({ id, title }) {
+          return <TodoListItem key={id} title={title} />;
         })}
       </ul>
     </>
