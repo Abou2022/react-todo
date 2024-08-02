@@ -3,7 +3,7 @@ import React from "react";
 const InputWithLabel = (props) => {
   return (
     <div>
-      <label htmlFor="todoTitle">{props.label}</label>
+      <label htmlFor="todoTitle">{props.children}</label>
       <input
         value={props.todoTitle}
         onChange={props.handleTitleChange}
