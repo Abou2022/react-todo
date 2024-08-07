@@ -42,14 +42,19 @@ function App() {
   }
 
   return (
-    <>
-      <div>
-        <h1>Todo List</h1>
-        <AddTodoForm onAddTodo={addTodo} />
+    <div>
+      <h1>Todo List</h1>
+      <AddTodoForm onAddTodo={addTodo} />
+      {isLoading ? (
+        <p>Loading ...</p>
+      ) : (
         <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
-      </div>
-    </>
+      )}
+      <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
+    </div>
   );
 }
 
 export default App;
+
+// isLoading ? <p>Loading ...</p> : <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
