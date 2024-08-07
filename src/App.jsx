@@ -4,8 +4,25 @@ import AddTodoForm from "./AddTodoForm";
 import "./App.css";
 
 function App() {
-  const existingTodo = JSON.parse(localStorage.getItem("savedTodoList")) || [];
-  const [todoList, setTodoList] = useState(existingTodo);
+  // const existingTodo = JSON.parse(localStorage.getItem("savedTodoList")) || [];
+  const [todoList, setTodoList] = useState([]);
+
+  useEffect(() => {
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const existingTodo =
+          JSON.parse(localStorage.getItem("savedTodoList")) || [];
+        const object = {
+          data: {
+            todoList: existingTodo,
+          },
+        };
+        resolve(object);
+      }, 2000);
+    }).then((result) => {
+      setTodoList(result.data.todoList);
+    });
+  }, []);
 
   useEffect(() => {
     const todoListString = JSON.stringify(todoList);
