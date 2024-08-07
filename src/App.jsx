@@ -4,8 +4,8 @@ import AddTodoForm from "./AddTodoForm";
 import "./App.css";
 
 function App() {
-  // const existingTodo = JSON.parse(localStorage.getItem("savedTodoList")) || [];
   const [todoList, setTodoList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     new Promise((resolve, reject) => {
@@ -21,13 +21,16 @@ function App() {
       }, 2000);
     }).then((result) => {
       setTodoList(result.data.todoList);
+      setIsLoading(false);
     });
   }, []);
 
   useEffect(() => {
-    const todoListString = JSON.stringify(todoList);
-    localStorage.setItem("savedTodoList", todoListString);
-  }, [todoList]);
+    if (!isLoading) {
+      const todoListString = JSON.stringify(todoList);
+      localStorage.setItem("savedTodoList", todoListString);
+    }
+  }, [todoList, isLoading]);
 
   function addTodo(newTodo) {
     setTodoList((previousTodoList) => [...previousTodoList, newTodo]);
