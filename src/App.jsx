@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import TodoList from "./TodoList";
 import AddTodoForm from "./AddTodoForm";
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -42,16 +43,12 @@ function App() {
         title: data.records[0].fields.title,
         id: data.records[0].id,
       };
-      setTodoList((previousTodoList = [newTodo, ...previousTodoList]));
+      setTodoList([newTodo, ...todoList]);
     } catch (error) {
       console.log(error.message);
       return null;
     }
   }
-
-  useEffect(() => {
-    postData();
-  }, []);
 
   async function getData() {
     const options = {
@@ -98,16 +95,32 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>Todo List</h1>
-      <AddTodoForm onAddTodo={addTodo} />
-      {isLoading ? (
-        <p>Loading ...</p>
-      ) : (
-        <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
-      )}
-      {/* <TodoList onRemoveTodo={removeTodo} todoList={todoList} /> */}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <h1>Todo List</h1>
+              <AddTodoForm onAddTodo={addTodo} />
+              {isLoading ? (
+                <p>Loading ...</p>
+              ) : (
+                <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
+              )}
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/new"
+          element={
+            <div>
+              <h1>New ToDo List</h1>
+            </div>
+          }
+        ></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
