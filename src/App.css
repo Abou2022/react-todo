@@ -110,7 +110,7 @@ h1 {
   padding: 0.5em 1em;
   border: none;
   border-radius: 4px;
-  background-color: #ff6347;
+  background-color: #fc7057;
   color: #fff;
   cursor: pointer;
 }
@@ -118,3 +118,4 @@ h1 {
 .add-todo-form button:hover {
   background-color: #e55347;
 }
+
