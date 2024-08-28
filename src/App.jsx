@@ -116,6 +116,14 @@ function App() {
             </div>
           }
         ></Route>
+        <Route
+          path="/new"
+          element={
+            <div>
+              <h1>New ToDo List</h1>
+            </div>
+          }
+        ></Route>
       </Routes>
     </BrowserRouter>
   );
