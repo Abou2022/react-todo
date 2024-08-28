@@ -5,7 +5,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
+  let [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   async function postData(newToDoTitle) {
@@ -43,16 +43,12 @@ function App() {
         title: data.records[0].fields.title,
         id: data.records[0].id,
       };
-      setTodoList((previousTodoList = [newTodo, ...previousTodoList]));
+      setTodoList([newTodo, ...todoList]);
     } catch (error) {
       console.log(error.message);
       return null;
     }
   }
-
-  useEffect(() => {
-    postData();
-  }, []);
 
   async function getData() {
     const options = {
@@ -112,7 +108,6 @@ function App() {
               ) : (
                 <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
               )}
-              {/* <TodoList onRemoveTodo={removeTodo} todoList={todoList} /> */}
             </div>
           }
         ></Route>
