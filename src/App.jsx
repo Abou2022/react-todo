@@ -5,7 +5,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  let [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   async function postData(newToDoTitle) {
