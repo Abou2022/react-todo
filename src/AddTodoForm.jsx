@@ -9,11 +9,9 @@ const AddTodoForm = ({ onAddTodo }) => {
 
   const handleAddTodo = (event) => {
     event.preventDefault();
-    if (todoTitle.trim() !== "") {
-      const newTodo = { id: Date.now(), title: todoTitle.trim() };
-      onAddTodo(newTodo);
-      setTodoTitle("");
-    }
+
+    onAddTodo(todoTitle);
+    setTodoTitle("");
   };
 
   return (
@@ -30,3 +28,4 @@ const AddTodoForm = ({ onAddTodo }) => {
 };
 
 export default AddTodoForm;
+
