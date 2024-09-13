@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TodoList from "./TodoList";
 import AddTodoForm from "./AddTodoForm";
-import "./App.css";
+import styles from "./App.module.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -100,15 +100,17 @@ function App() {
         <Route
           path="/"
           element={
-            <div>
-              <h1>Todo List</h1>
-              <AddTodoForm onAddTodo={addTodo} />
-              {isLoading ? (
-                <p>Loading ...</p>
-              ) : (
-                <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
-              )}
-            </div>
+            <main className={styles.main}>
+              <div>
+                <h1>Todo List</h1>
+                <AddTodoForm onAddTodo={addTodo} />
+                {isLoading ? (
+                  <p>Loading ...</p>
+                ) : (
+                  <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
+                )}
+              </div>
+            </main>
           }
         ></Route>
         <Route
