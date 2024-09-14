@@ -100,19 +100,22 @@ function App() {
         <Route
           path="/"
           element={
-            <main className={styles.main}>
-              <div>
+            <main>
+              <section className={styles.section}>
                 <h1>Todo List</h1>
-                <AddTodoForm onAddTodo={addTodo} />
+                <AddTodoForm
+                  onAddTodo={addTodo}
+                  className={styles.AddTodoForm}
+                />
                 {isLoading ? (
                   <p>Loading ...</p>
                 ) : (
                   <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
                 )}
-              </div>
+              </section>
             </main>
           }
-        ></Route>
+        />
         <Route
           path="/new"
           element={
@@ -120,7 +123,7 @@ function App() {
               <h1>New ToDo List</h1>
             </div>
           }
-        ></Route>
+        />
       </Routes>
     </BrowserRouter>
   );

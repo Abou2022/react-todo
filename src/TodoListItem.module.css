@@ -1,5 +1,10 @@
-li {
+.ListItem {
+  display: flex;
+  padding: 5px;
+  margin: 0.5rem;
+  text-align: center;
   color: blue;
-  padding: 2px;
-  margin: 2px;
+}
+li button {
+  margin: 5px;
 }
