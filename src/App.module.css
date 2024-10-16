@@ -1,0 +1,23 @@
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 25px;
+  background-color: #f3f4e7;
+  flex-direction: column;
+  color: rgb(80, 80, 80);
+  font-family: "Times New Roman", Times, serif;
+}
+
+@media (max-width: 600px) {
+  .section {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .section {
+    font-size: 22px;
+  }
+}
