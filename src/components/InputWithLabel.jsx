@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 
 const InputWithLabel = (props) => {
   //useref can be used to store DOM elements in state
@@ -24,8 +24,8 @@ const InputWithLabel = (props) => {
   );
 };
 
-InputWithLabel.PropTypes = {
-  props: PropTypes.func.isRequired,
+InputWithLabel.propTypes = {
+  props: propTypes.func.isRequired,
 };
 
 export default InputWithLabel;
