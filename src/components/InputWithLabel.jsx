@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import propTypes from "prop-types";
 
-const InputWithLabel = (props) => {
+const InputWithLabel = ({ children, todoTitle, handleTitleChange }) => {
   //useref can be used to store DOM elements in state
   const inputRef = useRef();
 
@@ -11,10 +11,10 @@ const InputWithLabel = (props) => {
 
   return (
     <div>
-      <label htmlFor="todoTitle">{props.children}</label>
+      <label htmlFor="todoTitle">{children}</label>
       <input
-        value={props.todoTitle}
-        onChange={props.handleTitleChange}
+        value={todoTitle}
+        onChange={handleTitleChange}
         name="title"
         type="text"
         id="todoTitle"
@@ -25,7 +25,8 @@ const InputWithLabel = (props) => {
 };
 
 InputWithLabel.propTypes = {
-  props: propTypes.func.isRequired,
+  handleTitleChange: propTypes.func.isRequired,
+  todoTitle: propTypes.string.isRequired,
 };
 
 export default InputWithLabel;

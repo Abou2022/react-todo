@@ -101,12 +101,9 @@ function App() {
           path="/"
           element={
             <main>
-              <section className={styles.section}>
+              <section className="section">
                 <h1>Todo List</h1>
-                <AddTodoForm
-                  onAddTodo={addTodo}
-                  className={styles.AddTodoForm}
-                />
+                <AddTodoForm onAddTodo={addTodo} />
                 {isLoading ? (
                   <p>Loading ...</p>
                 ) : (
