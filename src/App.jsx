@@ -4,8 +4,29 @@ import AddTodoForm from "./components/AddTodoForm";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+function sortTodoAscending(objectA, objectB) {
+  if (objectA < objectB) {
+    return 1;
+  } else if (objectA > objectB) {
+    return -1;
+  } else {
+    return 0;
+  }
+}
+
+function sortTodoDescending(objectA, objectB) {
+  if (objectA < objectB) {
+    return -1;
+  } else if (objectA > objectB) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 function App() {
   const [todoList, setTodoList] = useState([]);
+  const [sortAsc, setSortAsc] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
   async function postData(newToDoTitle) {
@@ -60,7 +81,9 @@ function App() {
 
     const url = ` https://api.airtable.com/v0/${
       import.meta.env.VITE_AIRTABLE_BASE_ID
-    }/${import.meta.env.VITE_TABLE_NAME}`;
+    }/${
+      import.meta.env.VITE_TABLE_NAME
+    }?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`;
 
     try {
       const response = await fetch(url, options);
@@ -73,7 +96,11 @@ function App() {
       const todos = data.records.map((record) => {
         return { id: record.id, title: record.fields.title };
       });
-      setTodoList(todos);
+
+      //Sorted
+      const sortedTodo = sortTodo(todos);
+
+      setTodoList(sortedTodo);
       setIsLoading(false);
     } catch (error) {
       console.log(error.message);
@@ -94,6 +121,23 @@ function App() {
     setTodoList(filterTodo);
   }
 
+  function sortTodo(todo) {
+    return todo.sort((objectA, objectB) => {
+      if (sortAsc) {
+        return sortTodoAscending(objectA.title, objectB.title);
+      } else {
+        return sortTodoDescending(objectA.title, objectB.title);
+      }
+    });
+  }
+
+  function handleSortToggleClick() {
+    // const sortedTodo = sortTodo(todoList);
+    // setTodoList(sortedTodo)
+    setTodoList((prevTodo) => sortTodo(prevTodo));
+    setSortAsc(!sortAsc);
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -103,6 +147,17 @@ function App() {
             <main>
               <section className="section">
                 <h1>Todo List</h1>
+
+                <div className="sort-button-container">
+                  <button
+                    onClick={handleSortToggleClick}
+                    className="sort-button"
+                  >
+                    {" "}
+                    Change Sorting Order
+                  </button>
+                </div>
+
                 <AddTodoForm onAddTodo={addTodo} />
                 {isLoading ? (
                   <p>Loading ...</p>
