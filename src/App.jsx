@@ -143,7 +143,6 @@ function App() {
     });
   }
 
-  // Button handlers
   function handleSortByCreatedTimeClick() {
     setTodoList((prevTodo) => sortTodoByCreatedTime(prevTodo));
     setSortAscByCreatedTime(!sortAscByCreatedTime);

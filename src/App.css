@@ -4,9 +4,9 @@
   align-items: center;
   min-height: 100vh;
   font-size: 25px;
-  background-color: #f3f4e7;
+  background-color: #ffffff;
   flex-direction: column;
-  color: rgb(80, 80, 80);
+  color: #333333;
   font-family: "Times New Roman", Times, serif;
 }
 
