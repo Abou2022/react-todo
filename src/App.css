@@ -4,10 +4,12 @@
   align-items: center;
   min-height: 100vh;
   font-size: 25px;
-  background-color: #ffffff;
+  background-color: #f3f4e7;
   flex-direction: column;
-  color: #333333;
+  color: rgb(80, 80, 80);
   font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  width: 100vw;
 }
 
 @media (max-width: 600px) {
