@@ -8,6 +8,8 @@
   flex-direction: column;
   color: rgb(80, 80, 80);
   font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  width: 100vw;
 }
 
 @media (max-width: 600px) {
@@ -21,3 +23,4 @@
     font-size: 22px;
   }
 }
+

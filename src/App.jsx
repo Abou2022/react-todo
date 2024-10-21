@@ -4,9 +4,31 @@ import AddTodoForm from "./components/AddTodoForm";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+function sortTodoByCreatedTimeAsc(objectA, objectB) {
+  return new Date(objectA.createdTime) - new Date(objectB.createdTime);
+}
+
+function sortTodoByCreatedTimeDesc(objectA, objectB) {
+  return new Date(objectB.createdTime) - new Date(objectA.createdTime);
+}
+
+function sortTodoByTitleAsc(objectA, objectB) {
+  if (objectA.title < objectB.title) return -1;
+  if (objectA.title > objectB.title) return 1;
+  return 0;
+}
+
+function sortTodoByTitleDesc(objectA, objectB) {
+  if (objectA.title < objectB.title) return 1;
+  if (objectA.title > objectB.title) return -1;
+  return 0;
+}
+
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortAscByCreatedTime, setSortAscByCreatedTime] = useState(true);
+  const [sortAscByTitle, setSortAscByTitle] = useState(true);
 
   async function postData(newToDoTitle) {
     const options = {
@@ -42,6 +64,7 @@ function App() {
       const newTodo = {
         title: data.records[0].fields.title,
         id: data.records[0].id,
+        createdTime: data.records[0].createdTime,
       };
       setTodoList([newTodo, ...todoList]);
     } catch (error) {
@@ -71,8 +94,13 @@ function App() {
       const data = await response.json();
 
       const todos = data.records.map((record) => {
-        return { id: record.id, title: record.fields.title };
+        return {
+          id: record.id,
+          title: record.fields.title,
+          createdTime: record.createdTime,
+        };
       });
+
       setTodoList(todos);
       setIsLoading(false);
     } catch (error) {
@@ -94,6 +122,37 @@ function App() {
     setTodoList(filterTodo);
   }
 
+  // My sort functions
+  function sortTodoByCreatedTime(todo) {
+    return todo.sort((objectA, objectB) => {
+      if (sortAscByCreatedTime) {
+        return sortTodoByCreatedTimeAsc(objectA, objectB);
+      } else {
+        return sortTodoByCreatedTimeDesc(objectA, objectB);
+      }
+    });
+  }
+
+  function sortTodoByTitle(todo) {
+    return todo.sort((objectA, objectB) => {
+      if (sortAscByTitle) {
+        return sortTodoByTitleAsc(objectA, objectB);
+      } else {
+        return sortTodoByTitleDesc(objectA, objectB);
+      }
+    });
+  }
+
+  function handleSortByCreatedTimeClick() {
+    setTodoList((prevTodo) => sortTodoByCreatedTime(prevTodo));
+    setSortAscByCreatedTime(!sortAscByCreatedTime);
+  }
+
+  function handleSortByTitleClick() {
+    setTodoList((prevTodo) => sortTodoByTitle(prevTodo));
+    setSortAscByTitle(!sortAscByTitle);
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -103,6 +162,22 @@ function App() {
             <main>
               <section className="section">
                 <h1>Todo List</h1>
+
+                <div className="sort-button-container">
+                  <button
+                    onClick={handleSortByCreatedTimeClick}
+                    className="sort-button"
+                  >
+                    Toggle Sort by Created Time
+                  </button>
+                  <button
+                    onClick={handleSortByTitleClick}
+                    className="sort-button"
+                  >
+                    Toggle Sort by Title
+                  </button>
+                </div>
+
                 <AddTodoForm onAddTodo={addTodo} />
                 {isLoading ? (
                   <p>Loading ...</p>
